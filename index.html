@@ -36,13 +36,17 @@
   <script>
     const URL_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTC4SyQ5JCNu1JVpvjyDM8whAAkXVZoPsrWBoh47Qx20a-xnG5ZfbK_ldFVyFZEjw/pub?output=csv';
 
-    let nomes = [];
+    let beneficiarios = [];
 
     Papa.parse(URL_CSV, {
       download: true,
       header: true,
       complete: function(results) {
-        nomes = results.data.map(item => item['RESPONSAVEL FAMILIAR']?.toLowerCase()?.trim());
+        beneficiarios = results.data.map(item => ({
+          nome: item['RESPONSAVEL FAMILIAR']?.toLowerCase()?.trim(),
+          endereco: item['ENDERECO'] || 'Endereço não disponível',
+          original: item['RESPONSAVEL FAMILIAR']
+        }));
       }
     });
 
@@ -56,9 +60,18 @@
         return;
       }
 
-      if (nomes.includes(nomeDigitado)) {
-        resultado.textContent = "✅ Nome encontrado na lista!";
-        resultado.style.color = "green";
+      const encontrado = beneficiarios.find(pessoa => pessoa.nome === nomeDigitado);
+
+      if (encontrado) {
+        resultado.innerHTML = `
+          <p style="color:green;">
+            ✅ <strong>${encontrado.original}</strong><br>
+            📍 Endereço: ${encontrado.endereco}<br><br>
+            Parabéns! Você foi selecionado na pré-lista de beneficiários do programa Maranhão Livre da Fome.<br>
+            Por favor, procure um de nossos postos de atendimento:<br>
+            <strong>CRAS SEDEM, CRAS PORTO, CREAS ou o setor de atendimento do Cadastro Único.</strong>
+          </p>
+        `;
       } else {
         resultado.textContent = "❌ Nome não encontrado.";
         resultado.style.color = "red";
