@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maranhão Livre da Fome</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #333;
+    }
+    header img {
+      max-width: 100%;
+      height: auto;
+    }
+    main {
+      padding: 20px;
+      text-align: center;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 80%;
+      max-width: 400px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+    .resultado {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .aviso {
+      background-color: #0056b3;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+      display: none;
+    }
+    footer {
+      background-color: #f1f1f1;
+      padding: 20px;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="Sem Título-1.png" alt="Maranhão Livre da Fome" />
+  </header>
+
+  <main>
+    <h1>Consulte seu nome</h1>
+    <input type="text" id="nome" placeholder="Digite seu nome completo" />
+    <button onclick="consultarNome()">Consultar</button>
+
+    <div id="resultado" class="resultado"></div>
+    <div id="aviso" class="aviso">
+      <strong>Atenção, beneficiários do programa Maranhão Livre da Fome!</strong><br><br>
+      Em breve será necessário realizar a pré-inscrição para participar da próxima etapa do programa.<br>
+      A data oficial da pré-inscrição será divulgada em breve.<br>
+      <strong>Fique atento aos nossos canais oficiais de comunicação.</strong>
+    </div>
+  </main>
+
+  <footer>
+    Secretaria Municipal de Assistência Social - SEMAS
+  </footer>
+
+  <script>
+    // Exemplo de lista de nomes fictícios
+    const nomes = ["João da Silva", "Maria Souza", "Carlos Oliveira", "Ana Paula"];
+
+    function consultarNome() {
+      const nomeDigitado = document.getElementById("nome").value.trim().toLowerCase();
+      const resultado = document.getElementById("resultado");
+      const aviso = document.getElementById("aviso");
+
+      if (nomes.some(n => n.toLowerCase() === nomeDigitado)) {
+        resultado.textContent = "✅ Nome encontrado na lista de beneficiários.";
+        resultado.style.color = "green";
+        aviso.style.display = "block";
+      } else {
+        resultado.textContent = "Seu nome não foi localizado na base de dados atual do Maranhão Livre da Fome. Em caso de dúvidas, entre em contato com os canais oficiais do programa.";
+        resultado.style.color = "red";
+        aviso.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
