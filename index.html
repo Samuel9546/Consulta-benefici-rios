@@ -12,6 +12,12 @@
       text-align: center;
     }
 
+    header img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
     input, button {
       padding: 10px;
       font-size: 16px;
@@ -24,13 +30,45 @@
       font-size: 18px;
       font-weight: bold;
     }
+
+    #aviso {
+      display: none;
+      margin: 30px auto;
+      background-color: #007BFF;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 600px;
+      text-align: left;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
+  <header>
+    <img src="banner.png" alt="Banner Maranhão Livre da Fome">
+  </header>
+
   <h1>🔍 Consulta de Beneficiários</h1>
   <input type="text" id="nome" placeholder="Digite seu nome completo">
   <button onclick="consultar()">Pesquisar</button>
   <div id="resultado"></div>
+
+  <div id="aviso">
+    <strong>Atenção, beneficiários do programa Maranhão Livre da Fome!</strong><br><br>
+    Em breve será necessário realizar a pré-inscrição para participar da próxima etapa do programa.<br>
+    A data oficial da pré-inscrição será divulgada em breve.<br>
+    <strong>Fique atento aos nossos canais oficiais de comunicação.</strong>
+  </div>
+
+  <footer>
+    Secretaria Municipal de Assistência Social - SEMAS
+  </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
   <script>
@@ -53,10 +91,12 @@
     function consultar() {
       const nomeDigitado = document.getElementById("nome").value.toLowerCase().trim();
       const resultado = document.getElementById("resultado");
+      const aviso = document.getElementById("aviso");
 
       if (!nomeDigitado) {
         resultado.textContent = "⚠️ Por favor, digite um nome.";
         resultado.style.color = "black";
+        aviso.style.display = "none";
         return;
       }
 
@@ -72,9 +112,11 @@
             <strong>CRAS SEDE, CRAS PORTO SANTO, CREAS ou o setor de atendimento do CADASTRO ÚNICO.</strong>
           </p>
         `;
+        aviso.style.display = "block";
       } else {
-        resultado.textContent = "❌ O nome informado não consta na  lista de beneficiários do  Programa Maranhão Livre da Fome. Para mais informações, acesse os canais de comunicação do programa..";
+        resultado.textContent = "❌ O nome informado não consta na lista de beneficiários do Programa Maranhão Livre da Fome. Para mais informações, acesse os canais de comunicação do programa.";
         resultado.style.color = "red";
+        aviso.style.display = "none";
       }
     }
   </script>
